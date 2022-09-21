@@ -1,0 +1,143 @@
+// t_1 - первая задача 
+// t_2 - вторая задача 
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+void t_1()
+{
+    string str1 = Console.ReadLine();
+    string str2 = Console.ReadLine();
+    for (int i = 0; i < str1.Length; i++)
+        if (str1[i] == ' ')
+            str1 = str1.Remove(i, 1);
+
+    for (int i = 0; i < str2.Length; i++)
+        if (str2[i] == ' ')
+            str2 = str2.Remove(i, 1);
+
+    char[] str11 = str1.ToCharArray();
+    char[] str22 = str2.ToCharArray();
+
+    for (int i = 0; i < str1.Length - 1; i++)
+        for (int j = 0; j < str1.Length - i - 1; j++)
+        {
+            if (str11[j + 1] > str11[j])
+            {
+                char temp = str11[j + 1];
+                str11[j + 1] = str11[j];
+                str11[j] = temp;
+            }
+        }
+
+    for (int i = 0; i < str2.Length - 1; i++)
+        for (int j = 0; j < str2.Length - i - 1; j++)
+        {
+            if (str22[j + 1] > str22[j])
+            {
+                char temp = str22[j + 1];
+                str22[j + 1] = str22[j];
+                str22[j] = temp;
+            }
+        }
+
+    if (str11.Length != str22.Length)
+        Console.WriteLine("NO");
+    else
+    {
+        bool flag = false;
+        for (int i = 0; i < str11.Length; i++)
+        {
+            if (str11[i] != str22[i])
+                flag = true;
+        }
+        if (flag)
+            Console.WriteLine("NO");
+        else
+            Console.WriteLine("YES");
+
+    }
+}
+
+void t_2()
+{
+    int n = Convert.ToInt16(Console.ReadLine());
+
+    int[] mas = new int[n];
+    int[] mas1 = new int[2];
+
+    for (int i = 0; i < n; i++)
+    {
+        mas[i] = Convert.ToInt16(Console.ReadLine());
+    }
+
+    for (int i = 0; i < mas.Length - 1; i++)
+        for (int j = 0; j < mas.Length - i - 1; j++)
+        {
+            if (mas[j + 1] > mas[j])
+            {
+                int temp = mas[j + 1];
+                mas[j + 1] = mas[j];
+                mas[j] = temp;
+            }
+        }
+
+    Console.WriteLine();
+    /*
+        for (int i = 0; i < n; i++)
+        {
+            Console.WriteLine(mas[i]);
+        }
+    */
+    int max_temp = 0, min_temp = 0, min_mas = 0, max_mas = 0, k = 0, k_temp = 0;
+
+    for (int i = 0; i < n - 1; i++)
+    {
+        if ((mas[i] - mas[i + 1]) == 1)
+        {
+            if (k_temp == 0)
+            {
+                max_temp = mas[i];
+            }
+            k_temp++;
+        }
+        else
+        {
+            min_temp = mas[i];
+            if (k_temp > k)
+            {
+                min_mas = min_temp;
+                max_mas = max_temp;
+                k = k_temp;
+            }
+            k_temp = 0;
+        }
+        if (i == n - 1)
+        {
+            k_temp++;
+            min_temp = mas[i];
+            if (k_temp > k)
+            {
+                min_mas = min_temp;
+                max_mas = max_temp;
+                k = k_temp;
+            }
+        }
+
+    }
+
+    mas1[0] = min_mas;
+    mas1[1] = max_mas;
+    Console.WriteLine();
+    for (int i = 0; i < 2; i++)
+        Console.Write(mas1[i]);
+    //Console.WriteLine(min_mas);
+    //Console.WriteLine(max_mas);
+}
+
+t_2();
+  
